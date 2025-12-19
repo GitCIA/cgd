@@ -1,0 +1,15 @@
+<!-- GitHub Pages Configuration (optional .nojekyll file instructions) -->
+<!-- If deploying to GitHub Pages and the site doesn't load, create an empty .nojekyll file -->
+<!-- in the root of your gh-pages branch to disable Jekyll processing -->
+
+<!-- To enable GitHub Pages for this project:
+1. Go to your repository settings
+2. Scroll to "GitHub Pages"
+3. Select "Deploy from a branch"
+4. Choose the branch (usually main or gh-pages)
+5. Select the folder (usually root or /docs)
+6. Your site will be live at: https://username.github.io/repository-name/
+
+Optional: Create .nojekyll file in the repository root to prevent Jekyll processing.
+This is only necessary if GitHub tries to process your files as Jekyll.
+-->
