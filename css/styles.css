@@ -1,0 +1,456 @@
+/* Custom Styles */
+:root {
+  /* Palette derived from css/pallette.txt (light -> dark) */
+  --color-light: #D9ED92;
+  --color-dark: #184E77;
+
+  /* Accent / green-teal range */
+  --color-emerald-50: #D9ED92;
+  --color-emerald-100: #B5E48C;
+  --color-emerald-600: #34A0A4;
+  --color-emerald-700: #168AAD;
+  --color-emerald-800: #1A759F;
+
+  /* Neutral / darker tones mapped into palette */
+  --color-gray-50: #99D98C;
+  --color-gray-100: #B5E48C;
+  --color-gray-200: #76C893;
+  --color-gray-300: #52B69A;
+  --color-gray-600: #168AAD;
+  --color-gray-700: #1E6091;
+  --color-gray-800: #1A759F;
+  --color-gray-900: #184E77;
+
+  --color-stone-50: #D9ED92;
+  --color-stone-100: #B5E48C;
+  --color-stone-200: #99D98C;
+  --color-white: #ffffff;
+
+  /* Base hues (source palette) */
+  --base-1: #EDEEC9; /* soft sandy green */
+  --base-2: #DDE7C7; /* pale mint */
+  --base-3: #BFD8BD; /* muted sage */
+  --base-4: #98C9A3; /* primary green (use for buttons softened) */
+  --base-5: #77BFA3; /* accent / active */
+
+  /* Design tokens (derived tints - role named) */
+  /* Tints computed by mixing base with white (10-40% strength) */
+  --bg-page: #FCFCF7;      /* page background — very light tint of base-1 (~12% strength) */
+  --bg-section: #F8FAF3;   /* section background — slightly stronger tint (base-2 ~20%) */
+  --bg-surface: #EBF3EB;   /* card / surface — subtle tint (base-3 ~30%) */
+
+  --border-subtle: #E7EFE6; /* gentle border tint from base-3 */
+
+  --btn-primary: #77BFA3;       /* primary buttons use the darkest palette hue (base-5) */
+  --accent-primary-dark: #5C9D8B; /* slightly darker variant for hover/active (derived from base-5) */
+  --btn-primary-hover: var(--accent-primary-dark); /* hover (darker tint) */
+  --accent-primary: #77BFA3;    /* full-strength accent for small accents / active states */
+
+  --btn-secondary: #D8E7D7; /* muted base-3 tint for secondary buttons */
+
+  /* Mapping notes: Use these tokens for backgrounds, surfaces, borders, and button fills only. Text colors remain unchanged. */
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family:
+    "Inter Variable",
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    "Helvetica Neue",
+    Arial,
+    "Noto Sans",
+    sans-serif,
+    "Apple Color Emoji",
+    "Segoe UI Emoji",
+    "Segoe UI Symbol",
+    "Noto Color Emoji";
+  color: var(--color-dark);
+  /* Use page token (very light) for the main page background — overrides .bg-white on body when needed */
+  background: var(--bg-page);
+  line-height: 1.5;
+}
+
+/* Palette overrides for non-text UI elements — preserve all text color classes */
+/* Large backgrounds / sections: use slightly stronger tint for sections */
+section.bg-gray-50 {
+  background-color: var(--bg-section) !important;
+}
+
+/* Card surfaces (commonly `.bg-gray-50.rounded-xl` or `.bg-white.rounded-xl`) use a subtle tint */
+.bg-gray-50.rounded-xl,
+.bg-white.rounded-xl {
+  background-color: var(--bg-surface) !important;
+}
+
+
+/* Subtle borders / dividers mapped to token */
+.border-gray-100,
+.border-gray-200,
+.border {
+  border-color: var(--border-subtle) !important;
+}
+.border-t { border-top-color: var(--border-subtle) !important; }
+
+/* Button mappings: primary buttons use the darkest palette hue (base-5); hover/active use a slightly darker derived tint */
+.bg-emerald-700 {
+  background-color: var(--btn-primary) !important;
+  color: #ffffff !important; /* keep button text readable */
+}
+.bg-emerald-700:hover,
+.bg-emerald-700:focus {
+  background-color: var(--btn-primary-hover) !important;
+  outline: none;
+}
+.bg-emerald-700:active {
+  background-color: var(--accent-primary-dark) !important;
+}
+
+/* Secondary buttons */
+.bg-emerald-100 { background-color: var(--btn-secondary) !important; }
+
+/* Badge / pill backgrounds previously using light emerald */
+/* Note: keep bg-emerald-100 mapped to --btn-secondary above. */
+
+/* Small surfaces: toasts remain white for clear contrast unless specifically styled elsewhere. */
+
+/* Tailwind gradient utilities used in the project: map gradient stops to soft tints */
+.from-emerald-50 { --tw-gradient-from: var(--bg-page) !important; }
+.to-stone-50 { --tw-gradient-to: var(--bg-section) !important; }
+
+/* Note: Text color utilities (text-*, text-emerald-*, etc.) are intentionally not modified.
+   This file only remaps non-text UI elements to the provided palette to preserve readability. */
+
+/* Toast Notifications */
+.toast {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: var(--color-white);
+  border-radius: 8px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  animation: slideIn 0.3s ease-out;
+  min-width: 320px;
+  max-width: 400px;
+}
+
+.toast.success {
+  border-left: 4px solid #10b981;
+}
+
+.toast.success::before {
+  content: "✓";
+  color: #10b981;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.toast.error {
+  border-left: 4px solid #ef4444;
+}
+
+.toast.error::before {
+  content: "✕";
+  color: #ef4444;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(400px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOut {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(400px);
+    opacity: 0;
+  }
+}
+
+.toast.removing {
+  animation: slideOut 0.3s ease-out forwards;
+}
+
+/* Smooth transitions */
+a, button {
+  transition: all 0.3s ease;
+}
+
+.hover-lift {
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.hover-lift:hover {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Hero video background styles */
+#home {
+  position: relative;
+}
+
+#home .home-video {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+}
+
+#home .video-iframe {
+    width: 100vw;
+    height: 60vw;
+    min-height: 100vh;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#home .video-overlay {
+  background: linear-gradient(180deg, rgba(6,95,70,0.25) 0%, rgba(17,24,39,0.45) 100%);
+  mix-blend-mode: multiply;
+  z-index: 1;
+}
+
+#home .home-content {
+  position: relative;
+  z-index: 2;
+  text-shadow: 0 6px 18px rgba(0,0,0,0.45);
+}
+
+/* Ensure border buttons look good on dark background */
+#home .home-content .border-2 {
+  border-color: rgba(255,255,255,0.25);
+}
+
+@media (max-width: 768px) {
+  #home .video-iframe {
+    min-width: 130vh;
+    min-height: 120%;
+  }
+}
+
+
+.gallery-img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+/* === Projects grid (Portfolio) === */
+.cgd-section-title-line{
+  width: 72px;
+  height: 3px;
+  background: var(--accent-primary);
+  border-radius: 999px;
+  margin: 12px auto 0;
+}
+
+.cgd-project-card{
+  position: relative;
+  overflow: hidden;
+  border-radius: 14px;
+  box-shadow: 0 20px 40px -24px rgba(0,0,0,0.35);
+}
+
+.cgd-project-card img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.02);
+  transition: transform 350ms ease;
+}
+
+.cgd-project-card:hover img{
+  transform: scale(1.07);
+}
+
+.cgd-project-overlay{
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.55) 70%, rgba(0,0,0,0.65) 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 20px;
+  transition: background 350ms ease;
+}
+
+.cgd-project-card:hover .cgd-project-overlay{
+  background: linear-gradient(180deg, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.72) 75%, rgba(0,0,0,0.78) 100%);
+}
+
+.cgd-project-meta{
+  opacity: 0;
+  transform: translateY(8px);
+  transition: all 280ms ease;
+}
+
+.cgd-project-card:hover .cgd-project-meta{
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.cgd-project-title{
+  color: #fff;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.cgd-project-link{
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+}
+
+.cgd-project-link svg{
+  width: 18px;
+  height: 18px;
+}
+
+/* services title-only cards */
+.cgd-card-link{
+  display: block;
+}
+.cgd-card-link:hover .cgd-card-arrow{
+  transform: translateX(4px);
+}
+.cgd-card-arrow{
+  transition: transform 250ms ease;
+}
+
+/* Project tiles (portfolio/projects pages) */
+.project-tile {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1rem;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.12);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  background: #fff;
+}
+.project-tile:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 26px 70px rgba(0, 0, 0, 0.18);
+}
+.project-tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+.project-tile:hover img {
+  transform: scale(1.06);
+}
+.project-tile .project-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,0.7) 100%);
+  opacity: 1;
+}
+.project-tile .project-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.25rem;
+  color: #fff;
+}
+.project-tile .project-hover {
+  position: absolute;
+  inset: 0;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.75rem;
+  background: rgba(0, 0, 0, 0.55);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+.project-tile:hover .project-hover {
+  opacity: 1;
+}
+.project-tile .project-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+.section-underline {
+  width: 70px;
+  height: 3px;
+  border-radius: 999px;
+  background: var(--accent-primary);
+  margin: 0.75rem auto 0;
+}
+
+/* LIGHTBOX */
+#lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  backdrop-filter: blur(4px);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+#lightbox img {
+  max-width: 90%;
+  max-height: 85vh;
+  border-radius: 10px;
+  box-shadow: 0 0 40px rgba(0,0,0,0.6);
+}
+.lightbox-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2.5rem;
+  color: white;
+  cursor: pointer;
+  padding: 0 20px;
+  user-select: none;
+}
+.lightbox-prev { left: 2%; }
+.lightbox-next { right: 2%; }
+.lightbox-close {
+  position: absolute;
+  top: 25px;
+  right: 30px;
+  font-size: 2.2rem;
+  color:white;
+  cursor:pointer;
+  font-weight: bold;
+}
